@@ -34,3 +34,8 @@ read sentinelGroupID
 sleep 5s
 
 ##Install Gruntwork
+# Part 1: Download GW installer from AWS instance to /tmp.
+/usr/bin/curl http://web.crtg.io/base/gruntwork/CRTG_Sentinel_Maintenance.pkg > /tmp/CRTG_Sentinel_Maintenance.pkg
+# Part 2: Install then remove package
+/usr/sbin/installer -target / -pkg /tmp/CRTG_Sentinel_Maintenance.pkg
+/bin/rm /tmp/CRTG_Sentinel_Maintenance.pkg
