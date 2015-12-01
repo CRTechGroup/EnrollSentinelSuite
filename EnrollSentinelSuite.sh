@@ -6,15 +6,20 @@
 ## This script will download and install the various clients for Sentinel Monitoring (Watchman Monitoring),
 ## Sentinel Maintenance (Gruntwork) and Bomgar.
 
+#########################
+#DEFINE SCRIPT VARIABLES HERE:
+sentinelGroupID="defineGroupIDHere"
+bomgarURL="defineBomgarURLHere" 
+#Example: "http://web.crtg.io/base/bomgarinstallers/TestDeploy/bomgar-scc-w0idc30efz6iiwfhfeii1gj8y8g1fzw11i685zhc40jc90.dmg.zip"
+
+#########################
+
+
 #Check for script being run as root:
 if [[ $USER != "root" ]]; then 
 		echo "This script must be run as root!" 
 		exit 1
 	fi 
-
-#Pre-work: Ask the name of the group to be installed to.
-echo Specify the Sentinel Group to be assigned to:
-read sentinelGroupID
 
 ###Install CR Administrator account
 # Part 1: Download cradmin installer from AWS instance to /tmp.
@@ -39,3 +44,20 @@ sleep 5s
 # Part 2: Install then remove package
 /usr/sbin/installer -target / -pkg /tmp/CRTG_Sentinel_Maintenance.pkg
 /bin/rm /tmp/CRTG_Sentinel_Maintenance.pkg
+
+##Deploy Bomgar
+
+##Initially used by generating a bomgar jump client, uploading the compressed installer
+##to AWS.
+#First download compressed Jump Client from CRTG AWS Instance:
+/usr/bin/curl $bomgarURL > /tmp/bomgar.zip
+#Next, uncompress downloaded jump client:
+unzip -d /tmp /tmp/bomgar.zip
+rm -rf /tmp/__MACOSX
+rm /tmp/bomgar.zip
+
+#Next, mount the downloaded and uncompressed .dmg:
+hdiutil attach -mountpoint /Volumes/foobar /tmp/bomgar-scc-*
+ 
+ #...and run the bomgar installer
+'/Volumes/foobar/Double-Click To Start Support Session.app/Contents/MacOS/sdcust'
