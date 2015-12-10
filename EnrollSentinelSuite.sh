@@ -28,6 +28,18 @@ if [[ $USER != "root" ]]; then
 /usr/sbin/installer -target / -pkg /tmp/create_cradmin_kala-1.1.pkg
 /bin/rm /tmp/create_cradmin_kala-1.1.pkg
 
+###Enable ARD and SSH for CRADMIN user
+#Enable ARD for Specific Users
+/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -allowAccessFor -specifiedUsers
+#Enable ARD Agent for CRADMIN
+/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -on -users cradmin -privs -all -restart -agent -menu
+#Enable SSH
+systemsetup -setremotelogin on
+#Create SSH Group
+dseditgroup -o create -q com.apple.access_ssh
+#Add CRADMIN to SSH Group
+dseditgroup -o edit -a cradmin -t user com.apple.access_ssh
+
 ##Install Watchman Monitoring and assign to ClientGroup
 #Part 3: Install Watchman Monitoring
 /usr/bin/defaults write /Library/MonitoringClient/ClientSettings ClientGroup -string $sentinelGroupID && \
