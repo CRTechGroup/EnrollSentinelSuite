@@ -10,7 +10,7 @@
 #DEFINE SCRIPT VARIABLES HERE:
 sentinelGroupID="defineGroupIDHere"
 bomgarURL="defineBomgarURLHere" 
-#Example: "http://web.crtg.io/base/bomgarinstallers/TestDeploy/bomgar-scc-w0idc30efz6iiwfhfeii1gj8y8g1fzw11i685zhc40jc90.dmg.zip"
+#Example: "http://deploy.crtg.io/base/bomgarinstallers/TestDeploy/bomgar-scc-w0idc30efz6iiwfhfeii1gj8y8g1fzw11i685zhc40jc90.dmg.zip"
 
 #########################
 
@@ -23,7 +23,7 @@ if [[ $USER != "root" ]]; then
 
 ###Install CR Administrator account
 # Part 1: Download cradmin installer from AWS instance to /tmp.
-/usr/bin/curl http://web.crtg.io/base/crtg_items/create_cradmin_kala-1.1.pkg > /tmp/create_cradmin_kala-1.1.pkg
+/usr/bin/curl http://deploy.crtg.io/crtg_items/create_cradmin_kala-1.1.pkg > /tmp/create_cradmin_kala-1.1.pkg
 # Part 2: Install then remove package
 /usr/sbin/installer -target / -pkg /tmp/create_cradmin_kala-1.1.pkg
 /bin/rm /tmp/create_cradmin_kala-1.1.pkg
