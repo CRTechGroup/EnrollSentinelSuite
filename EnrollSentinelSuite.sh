@@ -42,7 +42,7 @@ dseditgroup -o edit -a cradmin -t user com.apple.access_ssh
 
 ##Install Watchman Monitoring and assign to ClientGroup
 #Part 3: Install Watchman Monitoring
-/usr/bin/defaults write /Library/MonitoringClient/ClientSettings ClientGroup -string $sentinelGroupID && \
+/usr/bin/defaults write /Library/MonitoringClient/ClientSettings ClientGroup -string "$sentinelGroupID" && \
 /usr/bin/curl -L1 https://crtechgroup.monitoringclient.com/downloads/MonitoringClient.pkg > /tmp/MonitoringClient.pkg && \
 /usr/sbin/installer -target / -pkg /tmp/MonitoringClient.pkg && \
 /bin/rm /tmp/MonitoringClient.pkg
