@@ -6,6 +6,8 @@
 ## This script will download and install the various clients for Sentinel Monitoring (Watchman Monitoring),
 ## Sentinel Maintenance (Gruntwork) and Bomgar.
 
+## Script needs to be run as root.  Bomgar agent will not immediately activate if a user is not logged in during deployment.
+
 #########################
 #DEFINE SCRIPT VARIABLES HERE:
 sentinelGroupID="defineGroupIDHere"
@@ -13,13 +15,6 @@ bomgarURL="defineBomgarURLHere"
 #Example: "http://deploy.crtg.io/base/bomgarinstallers/TestDeploy/bomgar-scc-w0idc30efz6iiwfhfeii1gj8y8g1fzw11i685zhc40jc90.dmg.zip"
 
 #########################
-
-
-#Check for script being run as root:
-if [[ $USER != "root" ]]; then 
-		echo "This script must be run as root!" 
-		exit 1
-	fi 
 
 ###Install CR Administrator account
 # Part 1: Download cradmin installer from AWS instance to /tmp.
